@@ -1,0 +1,57 @@
+# configs/calibration.yaml
+# ─────────────────────────────────────────────────────────────────────────────
+# Default configuration for camera calibration and perspective rectification.
+# All paths are relative to the project root.
+# ─────────────────────────────────────────────────────────────────────────────
+
+calibration:
+  # Checkerboard inner-corner dimensions (columns × rows of INNER corners)
+  # A standard 9×6 board has 10×7 squares → 9×6 inner corners
+  board_cols: 9
+  board_rows: 6
+
+  # Physical size of one square in mm (used only for scale reference — not for
+  # claiming real-world metric accuracy without verified physical measurements)
+  square_size_mm: 25.0
+
+  # Minimum number of valid checkerboard detections required before calibrating
+  min_valid_frames: 10
+
+  # Sub-pixel corner refinement window (half-width, half-height)
+  subpix_window: [11, 11]
+
+  # Max iterations and epsilon for sub-pixel refinement
+  subpix_max_iter: 30
+  subpix_epsilon: 0.001
+
+  # cv2.calibrateCamera flags (0 = default rational model disabled)
+  # Use cv2.CALIB_RATIONAL_MODEL (16384) for wide-angle lenses
+  calib_flags: 0
+
+  # Output image size for undistorted result [width, height]
+  # null = keep original size
+  output_size: null
+
+  # Alpha parameter for cv2.getOptimalNewCameraMatrix
+  # 0.0 = crop all black pixels, 1.0 = keep all pixels (black borders visible)
+  alpha: 0.5
+
+  # Maximum acceptable reprojection error (pixels) — warn if exceeded
+  max_reproj_error: 1.0
+
+  # Path to save/load calibration profile (YAML)
+  profile_path: "configs/saved_profiles/default_profile.yaml"
+
+perspective:
+  # Default output dimensions for the rectified patch [width, height]
+  output_width: 800
+  output_height: 600
+
+  # Padding (pixels) added around the selected quadrilateral before rectification
+  padding: 0
+
+paths:
+  calibration_images: "data/calibration_images"
+  raw_images:         "data/raw"
+  reports:            "reports"
+  profiles:           "configs/saved_profiles"

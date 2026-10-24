@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "calibvision"
+version = "0.1.0"
+description = "Camera calibration and image dewarping — lens distortion correction and perspective rectification"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+authors = [{ name = "Sherif Abd El-Rady" }]
+
+dependencies = [
+    "numpy>=1.26",
+    "opencv-python>=4.9",
+    "matplotlib>=3.8",
+    "scipy>=1.13",
+    "pyyaml>=6.0",
+    "Pillow>=10.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "jupyter>=1.0",
+    "nbformat>=5.9",
+    "nbclient>=0.9",
+    "pytest>=8.0",
+    "pytest-cov",
+    "black",
+    "ruff",
+]
+
+[project.scripts]
+calibvision-calibrate = "calibvision.cli:calibrate"
+calibvision-dewarp    = "calibvision.cli:dewarp"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.black]
+line-length = 100
+
+[tool.ruff]
+line-length = 100
+select = ["E", "F", "I"]
